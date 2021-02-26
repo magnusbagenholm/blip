@@ -3,15 +3,9 @@ const cors = require("cors");
 const mongoose = require("mongoose");  // Require mongoose library
 require("dotenv").config();   // Require the dotenv
 const userRoutes = require("./src/models/users/UserRoute");
-
+const path = require('path');
 const app = express();
 
-app.use(express.static(path.join(__dirname, 'build')));
-
-
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
 
 // Cors
 
@@ -50,4 +44,11 @@ app.post("/ping", (req, res) => {
 
 app.listen(PORT, () => {
   console.log("Server started listening on port : ", PORT);
+});
+
+app.use(express.static(path.join(__dirname, './build')));
+
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, './build', 'index.html'));
 });
